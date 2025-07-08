@@ -120,7 +120,7 @@ medical-voice-chatbot/
 
 ---
 
-## Images and Demo Video:
+## Image
 
 *![alt text](image.png)
 
