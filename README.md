@@ -1,6 +1,16 @@
 # Medical Vision and Voice Chatbot
 
-A multi-phase AI-powered healthcare chatbot designed to simulate a voice-based interaction between a **patient** and a **virtual doctor**. Built using Python, speech recognition, TTS, and Gradio for a user-friendly interface.
+A multi-phase AI-powered healthcare chatbot designed to simulate a natural, voice-based interaction between a **patient** and a **virtual doctor**. Built entirely in Python, the system integrates speech recognition, image analysis, natural language understanding, and text-to-speech synthesis, all wrapped in a clean Gradio interface.
+
+The chatbot utilizes the GROQ inference engine to intelligently route requests to different APIs:
+
+For medical understanding of user queries (spoken or image-based), it uses Meta’s LLaMA 4 Scout model to generate accurate and realistic doctor-like responses.
+
+To generate the doctor’s voice response, it uses ElevenLabs TTS, which offers high-quality, human-like audio.
+
+For speech-to-text, it leverages OpenAI Whisper v3 via GROQ’s accelerated inference.
+
+The project runs locally and supports real-time patient input (voice + image) and produces both textual and spoken doctor feedback, making it ideal for demonstrating AI capabilities in digital health.
 
 ---
 
@@ -50,40 +60,48 @@ source venv/bin/activate
 
 # 4. Install required dependencies
 pip install -r requirements.txt
+
+# 5. Run the command
+python front_app.py
 ```
 
 ---
 
 ## 🧪 Running the Application
 
-### Phase 1: Brain of the Doctor
+### [User (Patient)]
+     |
+     | (1) Voice Input via Microphone
+     v
 
-```bash
-python brain_of_the_doctor.py
-```
+### [Voice of the Patient]
+ - Python records audio
+ - Whisper model via Groq (STT)
+     |
+     v
 
-### Phase 2: Voice of the Patient
+### [Text Input + Optional Image]
+     |
+     |---------------------------> Optional Image (.jpg)
+     |                             |
+     v                             v
 
-```bash
-python voice_of_the_patient.py
-```
+### [Brain of the Doctor]
+ - Uses LLaMA model via Groq API
+ - Image encoded if provided
+ - Doctor-like response generated
+     |
+     v
 
-### Phase 3: Voice of the Doctor
+### [Voice of the Doctor]
+ - ElevenLabs TTS API generates MP3
+     |
+     v
 
-```bash
-python voice_of_the_doctor.py
-```
-
-### Phase 4: Gradio UI (Frontend)
-
-Runs a local web server:
-
-```bash
-python front_app.py
-```
-
-Then open your browser and go to: [http://localhost:7860](http://localhost:7860)
-
+### [Gradio UI]
+ - Shows transcribed text
+ - Doctor's textual diagnosis
+ - Plays Doctor's voice
 ---
 
 ##  File Structure
